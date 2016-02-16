@@ -1,16 +1,75 @@
 import React, {Component} from 'react';
+import ReactDOMServer from 'react-dom/server';
+import request from 'superagent';
+import OutputSlide from './OutputSlide';
+import html from 'html';
 
-import Slide from './Slide';
+import Slides from './Slides';
 
-export default class Content extends Component {
+class Content extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slides: []
+    };
+    //this.stateLog = [{time: this.getTimeStamp(), state: this.state.slides}];
+  }
+  componentDidMount() {
+    request
+      .get('/slides')
+      .end((err, res) => {
+        err ? console.log(err) : '';//console.log(res);
+        this.setState( {
+          slides: this.getElements(res.text)
+        });
+      });
+  }
+  updateState(obj, cb) {
+    this.setState(obj, () => {
+      cb && cb();
+      console.log(this.state);
+    });
+  }
+  getDangerousHtml() {
+    var result = '';
+    this.state.slides.forEach((slide, i) => {
+      result += html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputSlide, {slides: this.state.slides, index: i})));
+      result += '\n';
+      result += '\n';
+    })
+    return result; //html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputTemplate, {slides: this.state.slides})).replace('<i>', '').replace('</i>', ''));
+  }
+  getElements(html) {
+    let element = document.createElement('div');
+    element.innerHTML = html;
+    const anchors = Array.from(element.querySelectorAll('a')).map((a) => (
+      {
+        href: a.getAttribute("href").trim(), // literal path
+        className: Array.from(a.classList),
+        img: Array.from(a.querySelectorAll('img')).map((img) => (
+        {
+          alt: img.alt || null,
+          'data-source': img.dataset.source || null,
+          'data-mobile-source': img.dataset.mobileSource || null
+        }
+        )),
+        section: Array.from(a.querySelectorAll('section')).map((section) => ({text: section.textContent})),
+        header: Array.from(a.querySelectorAll('h2')).map((header) => ({text: header.textContent}))
+      }
+    ));
+
+    //console.log(anchors);
+
+    return anchors;
+  }
   render() {
     return (
-      <div id='Content'>
-        Content
-        <Slide />
+      <div>
+        <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)}/>
+        <textarea value={this.getDangerousHtml()}/>
       </div>
     )
   }
 }
 
-
+export default  Content;
