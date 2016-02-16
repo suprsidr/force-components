@@ -1,0 +1,53 @@
+{
+  "name": "forcerc-components",
+  "version": "1.0.0",
+  "description": "Components for ForceRC",
+  "main": "bundle.js",
+  "scripts": {
+    "prestart": "npm run task",
+    "start": "node server/server.js",
+    "start-dev": "node server/dev-server.js",
+    "lint": "eslint components",
+    "task": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suprsidr/force-components.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Wayne Patterson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suprsidr/force-components.git/issues"
+  },
+  "homepage": "https://github.com/suprsidr/force-components.git#readme",
+  "babel": {
+    "presets": [
+      "react",
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "devDependencies": {
+    "watchify": "^3.2.2"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "react": "^0.14",
+    "react-dom": "^0.14.0",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.3.13",
+    "babelify": "^7.2.0",
+    "express" : "^4.13.3",
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.0.1",
+    "babel-preset-stage-0": "^6.0.15",
+    "eslint-plugin-react": "^3.6.2",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1" }
+}

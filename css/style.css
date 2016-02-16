@@ -1,0 +1,25 @@
+
+body div div{
+  border: 1px solid black;
+  position: absolute;
+}
+
+#App {
+  position: relative;
+  width: 833px;
+  height: 544px;
+}
+
+#Content {
+  width: 815px;
+  height: 248px;
+  top: 29px;
+  left: 7px;
+}
+
+#Slide {
+  width: 291px;
+  height: 71px;
+  top: 62px;
+  left: 39px;
+}
