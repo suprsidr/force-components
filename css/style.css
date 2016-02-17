@@ -15,8 +15,9 @@
 }
 #app a {
   display: inline-block;
-  width: 200px;
+  max-width: 196px;
   float: left;
+  padding: 2px;
 }
 #app img {
   width: 100%;
@@ -27,10 +28,14 @@
   display: none;
 }
 #app .dragging-over {
-  outline: 1px solid red;
+  z-index: 10;
+}
+#app .dragging-over img {
+  outline: 1px solid darkgray;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.6);
 }
 #app textarea {
   width: 100%;
-  height: 620px;
+  height: 500px;
   padding: 10px;
 }
