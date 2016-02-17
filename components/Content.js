@@ -38,7 +38,7 @@ class Content extends Component {
       result += '\n';
       result += '\n';
     })
-    return result; //html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputTemplate, {slides: this.state.slides})).replace('<i>', '').replace('</i>', ''));
+    return result.replace(/&amp;/g, '&'); //html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputTemplate, {slides: this.state.slides})).replace('<i>', '').replace('</i>', ''));
   }
   getElements(html) {
     let element = document.createElement('div');
@@ -72,7 +72,7 @@ class Content extends Component {
   render() {
     return (
       <div>
-        <div><button onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button></div>
+        <div><button className="mybutton" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button></div>
         <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
         <textarea value={this.getDangerousHtml()}/>
       </div>
