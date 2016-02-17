@@ -42,11 +42,12 @@ class Slide extends Component {
     var tmp = slides[e.dataTransfer.getData("text/plain")];
     slides[e.dataTransfer.getData("text/plain")] = slides[idx];
     slides[idx] = tmp;
+    slides.forEach((slide) => delete slide.img[0].src);
     this.props.updateState(
       {
         slides: slides
       }
-    )
+    );
     e.target.parentNode.classList.remove('dragging-over');
   }
   render() {
