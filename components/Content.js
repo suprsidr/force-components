@@ -10,7 +10,8 @@ class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slides: []
+      slides: [],
+      showMobile: false
     };
     //this.stateLog = [{time: this.getTimeStamp(), state: this.state.slides}];
   }
@@ -50,7 +51,7 @@ class Content extends Component {
         {
           alt: img.alt || null,
           'data-source': img.dataset.source || null,
-          'data-mobile-source': img.dataset.mobileSource || null
+          'data-mobile-source': img.dataset.mobileSource || 'http://placehold.it/640x480?text=Missing+Mobile+Image'
         }
         )),
         section: Array.from(a.querySelectorAll('section')).map((section) => ({text: section.textContent})),
@@ -62,10 +63,17 @@ class Content extends Component {
 
     return anchors;
   }
+  toggleShowMobile(e) {
+    e.preventDefault();
+    this.setState({
+      showMobile: !this.state.showMobile
+    });
+  }
   render() {
     return (
       <div>
-        <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)}/>
+        <div><button onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button></div>
+        <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
         <textarea value={this.getDangerousHtml()}/>
       </div>
     )

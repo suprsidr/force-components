@@ -5,7 +5,7 @@ import Content from './Content';
 export default class App extends Component {
   render() {
     return (
-      <div id='App'>
+      <div id='app'>
         <Content />
       </div>
     )

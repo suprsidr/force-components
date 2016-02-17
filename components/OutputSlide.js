@@ -6,6 +6,8 @@ class OutputSlide extends Component {
     const slide = this.props.slides[this.props.index];
     if(this.props.index === 0) {
       slide.img[0].src = slide.img[0]['data-source'];
+    } else {
+      delete slide.img[0].src;
     }
     return (
       <a href={slide.href} className={slide.className.join(' ')}>

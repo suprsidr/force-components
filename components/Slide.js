@@ -94,10 +94,10 @@ class Slide extends Component {
   }
   renderItemOrEdit() {
     const slide = this.props.slides[this.props.index];
-    slide.img[0].src = slide.img[0]['data-source'];
+    slide.img[0].src = (this.props.showMobile) ? slide.img[0]['data-mobile-source'] : slide.img[0]['data-source'];
     if (this.state.editing) {
       return (
-        <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={true} onDragStart={(e) => this.dragStarted(e)} onDragOver={(e) => this.draggingOver(e)} onDragEnter={(e) => this.dragEnter(e)} onDragLeave={(e) => this.dragLeave(e)} onDrop={(e) => this.dropped(e)}>
+        <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={false}>
           <img data-idx={this.props.index} {...slide.img[0]} />
           <section>{slide.section[0].text}</section>
           <h2>{slide.heading[0].text}</h2>
@@ -130,6 +130,9 @@ class Slide extends Component {
                 </label>
                 <input type="hidden" ref="className" defaultValue={slide.className.join(' ')}/>
                 <button className="saver" onClick={(e) => this.save(e)}>Save</button>
+                <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
+                  <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
+                </i>
               </div>
             </div>
           </div>
