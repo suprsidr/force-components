@@ -11,7 +11,7 @@ class OutputSlide extends Component {
       <a href={slide.href} className={slide.className.join(' ')}>
         <img {...slide.img[0]} />
         <section>{slide.section[0].text}</section>
-        <h2>{slide.header[0].text}</h2>
+        <h2>{slide.heading[0].text}</h2>
       </a>
     )
   }

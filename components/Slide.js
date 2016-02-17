@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 
+import Toolbar from './Toolbar';
 
 class Slide extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false
+    };
+  }
   updateState(e) {
     e.preventDefault();
     const slides = this.props.slides.slice();
@@ -15,7 +22,42 @@ class Slide extends Component {
       }
     )
   }
+  save(e) {
+    e.preventDefault();
+    const slides = this.props.slides.slice();
+    slides.forEach((slide) => delete slide.img[0].src);
+    slides[this.props.index] = {
+      href: this.refs.href.value,
+      className: this.refs.className.value.split(' '),
+      img: [
+        {
+          'data-source': this.refs['data-source'].value,
+          'data-mobile-source': this.refs['data-mobile-source'].value,
+          alt: this.refs.alt.value
+        }
+      ],
+      heading: [
+        {text: this.refs.heading.value}
+      ],
+      section: [
+        {text: this.refs.section.value}
+      ]
+    };
 
+    this.props.updateState(
+      {
+        slides: slides
+      }
+    )
+    this.toggleEditing(e);
+  }
+  toggleEditing(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({
+      editing: !this.state.editing
+    });
+  }
   dragStarted(e) {
     e.dataTransfer.setData("text/plain", e.target.dataset.idx);
     e.dataTransfer.effectAllowed = "move";
@@ -50,18 +92,62 @@ class Slide extends Component {
     );
     e.target.parentNode.classList.remove('dragging-over');
   }
-  render() {
+  renderItemOrEdit() {
     const slide = this.props.slides[this.props.index];
-    //if(this.props.index === 0) {
-      slide.img[0].src = slide.img[0]['data-source'];
-    //}
-    return (
-      <a href={slide.href} data-idx={this.props.index} className={slide.className.join(' ')} draggable={true} onDragStart={(e) => this.dragStarted(e)} onDragOver={(e) => this.draggingOver(e)} onDragEnter={(e) => this.dragEnter(e)} onDragLeave={(e) => this.dragLeave(e)} onDrop={(e) => this.dropped(e)}>
-        <img data-idx={this.props.index} {...slide.img[0]} />
-        <section>{slide.section[0].text}</section>
-        <h2>{slide.header[0].text}</h2>
-      </a>
-    )
+    slide.img[0].src = slide.img[0]['data-source'];
+    if (this.state.editing) {
+      return (
+        <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={true} onDragStart={(e) => this.dragStarted(e)} onDragOver={(e) => this.draggingOver(e)} onDragEnter={(e) => this.dragEnter(e)} onDragLeave={(e) => this.dragLeave(e)} onDrop={(e) => this.dropped(e)}>
+          <img data-idx={this.props.index} {...slide.img[0]} />
+          <section>{slide.section[0].text}</section>
+          <h2>{slide.heading[0].text}</h2>
+          <div className="flex-it flex-wrap edit-box">
+            <div className="flex-item-auto">
+              <div  className="flex-it flex-col controls">
+                <label>
+                  Link:
+                  <input ref="href" defaultValue={slide.href} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Alt Text:
+                  <input ref="alt" defaultValue={slide.img[0].alt} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Image Source:
+                  <input ref="data-source" defaultValue={slide.img[0]['data-source']} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Image Mobile Source:
+                  <input ref="data-mobile-source" defaultValue={slide.img[0]['data-mobile-source'] || ''} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Tab Text:
+                  <input ref="heading" defaultValue={slide.heading[0].text} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Teaser Text:
+                  <input ref="section" defaultValue={slide.section[0].text} style={{width: '100%'}}/>
+                </label>
+                <input type="hidden" ref="className" defaultValue={slide.className.join(' ')}/>
+                <button className="saver" onClick={(e) => this.save(e)}>Save</button>
+              </div>
+            </div>
+          </div>
+        </a>
+      )
+    } else {
+      return (
+        <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={true} onDragStart={(e) => this.dragStarted(e)} onDragOver={(e) => this.draggingOver(e)} onDragEnter={(e) => this.dragEnter(e)} onDragLeave={(e) => this.dragLeave(e)} onDrop={(e) => this.dropped(e)}>
+          <img data-idx={this.props.index} {...slide.img[0]} />
+          <section>{slide.section[0].text}</section>
+          <h2>{slide.heading[0].text}</h2>
+          {this.props.updateState && <Toolbar onClick={(e) => this.toggleEditing(e)}/>}
+        </a>
+      )
+    }
+  }
+  render() {
+    return this.renderItemOrEdit()
   }
 }
 

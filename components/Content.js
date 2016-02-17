@@ -54,7 +54,7 @@ class Content extends Component {
         }
         )),
         section: Array.from(a.querySelectorAll('section')).map((section) => ({text: section.textContent})),
-        header: Array.from(a.querySelectorAll('h2')).map((header) => ({text: header.textContent}))
+        heading: Array.from(a.querySelectorAll('h2')).map((header) => ({text: header.textContent}))
       }
     ));
 
