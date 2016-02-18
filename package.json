@@ -50,6 +50,7 @@
     "react-hot-loader": "^1.3.0",
     "superagent": "^1.7.2",
     "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-server": "^1.12.1",
+    "win-tfs": "^1.0.1"
   }
 }
