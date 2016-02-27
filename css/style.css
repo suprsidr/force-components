@@ -305,3 +305,50 @@ body {
 .text-center {
   rext-align: center;
 }
+.main_content *, .main_content *::before, .main_content *::after {
+  box-sizing: border-box;
+}
+.main_content *, .main_content *::before, .main_content *::after {
+  box-sizing: border-box;
+}
+.main_content {
+  background-color: white;
+  margin: 0 auto;
+  max-width: 960px;
+  min-height: 300px;
+  padding: 0 0 48px;
+  font-size: 0.8125em;
+}
+.lev1_merch_poptitle {
+  overflow: hidden;
+  position: relative;
+}
+.popTitle::before {
+  background: #0184c3 none repeat scroll 0 0;
+  content: "";
+  display: block;
+  font-family: fontawesome;
+  font-size: 15px;
+  margin-top: -0.95em;
+  padding: 1.25% 2% 1.25% 2.5%;
+  position: absolute;
+  right: 2.5%;
+  top: 50%;
+}
+
+.popTitle {
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  bottom: -4em;
+  color: #fff;
+  display: block;
+  font-size: 1.45em;
+  left: 0;
+  padding: 3% 12% 3% 2%;
+  position: absolute;
+  transition: bottom 0.5s ease 0s;
+  width: 100%;
+  z-index: 10;
+}
+.lev1_merch_poptitle a:hover .poptitle {
+  bottom: 0;
+}
