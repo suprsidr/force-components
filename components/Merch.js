@@ -4,7 +4,7 @@ import MerchPack from './MerchPack';
 class Merch extends Component {
   render() {
     return (
-      <div id='app'>
+      <div className="main_content">
         <MerchPack />
       </div>
     )

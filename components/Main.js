@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import Content from './Content';
 
 class Main extends Component {
   render() {
     return (
-      <div id='app'>
+      <div>
         <ul role="nav">
-          <li><Link to="/">Home Slides</Link></li>
-          <li><Link to="/merch">MerchPack</Link></li>
+          <li><IndexLink to="/">Home</IndexLink></li>
+          <li><Link to="/slides" activeStyle={{ color: 'red' }}>Homepage Slides</Link></li>
+          <li><Link to="/merch" activeStyle={{ color: 'red' }}>MerchPack</Link></li>
         </ul>
-        <Content />
+        <div>
+          {this.props.children}
+        </div>
       </div>
     )
   }
