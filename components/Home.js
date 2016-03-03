@@ -18,7 +18,6 @@ class Home extends Component{
     });
   }
   onChange(e) {
-    //this.refs.target.innerHTML = e.target.value;
     let el = document.createElement('div');
     el.innerHTML = e.target.value;
     console.log(Array.from(el.children));
@@ -28,7 +27,7 @@ class Home extends Component{
     return {
       attributes: Array.from(el.attributes)
         .reduce((prev, next) => {
-          if(next.name === 'class'/* || next.nodeName.match(/^data-/)*/){
+          if(next.name === 'class'){
             return prev;
           }
           prev[next.name] = next.value;
@@ -36,22 +35,9 @@ class Home extends Component{
         }, {}),
       children: Array.from(el.children).map((child) => this.getDomMap(child)),
       classList: Array.from(el.classList),
-      /* don't think we'll need this - just use attributes
-      dataset: Array.from(el.attributes)
-        .reduce((prev, next) => {
-          if(!next.name.match(/^data-/)){
-            return prev;
-          }
-          // camelCase data attributes for javascript
-          prev[next.name.substr(5).replace(/-(.)/g, function ($0, $1) {
-            return $1.toUpperCase();
-          })] = next.value;
-          return prev;
-        }, {}),*/
       tag: el.tagName,
       textContent: Array.from(el.childNodes).reduce((prev, next) => {
-        // ugly!
-        if(next.nodeType === 3 && next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ') !== '') {
+        if(next.nodeType === 3) {
           prev += next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ');
         }
         return prev;
@@ -64,6 +50,7 @@ class Home extends Component{
   getElement(el, i) {
     console.log(el);
     el.attributes.key = i;
+    el.attributes.className = el.classList.join(' ');
     var children =  el.children.length > 0 ? el.children.map((child, i) => this.getElement(child, i)) : el.textContent;
     return React.createElement(el.tag, el.attributes, this.renderChildren(el.tag) ? children : undefined);
   }
@@ -71,7 +58,7 @@ class Home extends Component{
     return (
       <div>
         <textarea style={{display: 'block', width: '100%', height: '400px', margin: '0 auto'}} onChange={(e) => this.onChange(e)}/>
-        <div ref="target" className="main_content homepage">
+        <div className="main_content homepage">
           {this.state.elements.map((el, i) => this.getElement(el, i))}
         </div>
       </div>
