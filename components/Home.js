@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+
+/* we only need custom elements for the ones we want to build in the edit features.
 import DIV from './elements/DIV';
 import H2 from './elements/H2';
 import IMG from './elements/IMG';
 import SECTION from './elements/SECTION';
-import A from './elements/A';
+import A from './elements/A';*/
+
 class Home extends Component{
   constructor(props) {
     super(props);
@@ -57,7 +60,7 @@ class Home extends Component{
   render() {
     return (
       <div>
-        <textarea style={{display: 'block', width: '100%', height: '400px', margin: '0 auto'}} onChange={(e) => this.onChange(e)}/>
+        <textarea style={{display: 'block', width: '100%', maxWidth: '960px', height: '400px', margin: '0 auto'}} onChange={(e) => this.onChange(e)}/>
         <div className="main_content homepage">
           {this.state.elements.map((el, i) => this.getElement(el, i))}
         </div>
