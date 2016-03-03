@@ -10,8 +10,6 @@ class Home extends Component{
   }
   getDomMap(el) {
     return {
-      name: el.nodeName,
-      classList: Array.from(el.classList),
       attributes: Array.from(el.attributes)
         .reduce((prev, next) => {
           if(next.nodeName === 'class' || next.nodeName.match(/^data-/)){
@@ -20,6 +18,8 @@ class Home extends Component{
           prev[next.nodeName] = next.nodeValue;
           return prev;
         }, {}),
+      children: Array.from(el.children).map((child) => this.getDomMap(child)),
+      classList: Array.from(el.classList),
       dataset: Array.from(el.attributes)
         .reduce((prev, next) => {
           if(!next.nodeName.match(/^data-/)){
@@ -28,7 +28,13 @@ class Home extends Component{
           prev[next.nodeName.replace(/data-/, '')] = next.nodeValue;
           return prev;
         }, {}),
-      children: Array.from(el.children).map((child) => this.getDomMap(child))
+      nodeName: el.nodeName,
+      textContent: Array.from(el.childNodes).reduce((prev, next) => {
+        if(next.nodeType === 3 && next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ') !== '') {
+          prev += next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ');
+        }
+        return prev;
+      }, '')
     }
   }
   render() {
