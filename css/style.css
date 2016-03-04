@@ -146,7 +146,15 @@ body {
   flex: 1;
 }
 /* end flexbox classes */
-
+[role="nav"] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+[role="nav"] li {
+  display: inline-block;
+  padding: 5px 10px;
+}
 [draggable] {
   user-select: none;
 }
@@ -216,11 +224,20 @@ body {
   display: none;
   width: 100%;
 }
-
 .toolbar i {
   display: inline-block;
   line-height: 16px;
   float: right;
+}
+.homepage .editable-item {
+  display: inline-block;
+}
+.homepage .toolbar {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
 .edit-box {
   position: absolute;
@@ -233,15 +250,19 @@ body {
   background-color: white;
   left: 0;
   padding: 30px;
-  position: absolute;
+  position: absolute !important;
   top: 0;
   width: 100%;
+  min-height: 100%;
   border: 1px solid #999;
 }
 #slider > a:last-of-type .edit-box,
 #slider > a:last-of-type .edit-box > div {
   left: auto;
   right: 0;
+}
+.edit-box label {
+  text-transform: uppercase;
 }
 .edit-box input, .edit-box button {
   margin-bottom: 10px;
@@ -319,6 +340,9 @@ body {
   padding: 0 0 48px;
   font-size: 0.8125em;
 }
+.main_content div {
+  position: relative;
+}
 .lev1_merch_poptitle {
   overflow: hidden;
   position: relative;
@@ -351,4 +375,8 @@ body {
 }
 .lev1_merch_poptitle a:hover .poptitle {
   bottom: 0;
+}
+
+.text-center {
+  text-align: center;
 }
