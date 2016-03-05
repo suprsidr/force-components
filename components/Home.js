@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
 
-/* we only need custom elements for the ones we want to build in the edit features.
-import DIV from './elements/DIV';
-import H2 from './elements/H2';
-import IMG from './elements/IMG';
-import SECTION from './elements/SECTION';
-import A from './elements/A';*/
-
 import EditableAnchor from './elements/EditableAnchor';
 
 class Home extends Component{
   constructor(props) {
     super(props);
-    this.arr = [];
     this.state = {
       elements: []
     };
