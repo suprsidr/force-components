@@ -35,8 +35,8 @@ class EditableAnchor extends Component{
   }
   getEditFields(attributes) {
     let retval = [];
+    // remove keys we just don't wand editable fields for.
     const { _id, className, updateState, children, ...props } = attributes;
-    console.log('attributes: ', props);
     for(let prop in props) {
       retval.push(
         React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
@@ -80,7 +80,7 @@ class EditableAnchor extends Component{
       )
     } else {
       return (
-        <a ref="editable" {...props} className={`editable-item ${className}`}>
+        <a ref="editable" {...props} className={`editable-item ${className}`} onClick={(e) => e.preventDefault()}>
           {children}
           <Toolbar onClick={(e) => this.toggleEditing(e)}/>
         </a>
