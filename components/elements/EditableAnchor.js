@@ -4,6 +4,7 @@ import Toolbar from '../Toolbar';
 class EditableAnchor extends Component{
   constructor(props) {
     super(props);
+    this.fields = [];
     this.state = {
       editing: false,
       dims: {
@@ -11,6 +12,14 @@ class EditableAnchor extends Component{
         width: 0
       }
     };
+  }
+  save(e) {
+    e.preventDefault();
+    this.props.updateState(this.fields.reduce((prev, next) => {
+      prev[next] = this.refs[next].value;
+      return prev;
+    }, {}));
+    this.toggleEditing(e);
   }
   toggleEditing(e) {
     e.preventDefault();
@@ -26,32 +35,33 @@ class EditableAnchor extends Component{
   }
   getEditFields(attributes) {
     let retval = [];
-    const { className, children, ...props } = attributes;
+    const { _id, className, updateState, children, ...props } = attributes;
     console.log('attributes: ', props);
     for(let prop in props) {
       retval.push(
-        React.createElement('label', {key: prop}, [ `${prop}:`,
-          React.createElement('input', {key: prop+1, ref: prop, defaultValue: props[prop], style:{width: '100%'}})
+        React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
+          React.createElement('input', {key: `${_id}_${prop}`, ref: `${_id}_attributes_${prop}`, defaultValue: props[prop], style:{width: '100%'}})
         ])
       );
+      this.fields.push(`${_id}_attributes_${prop}`);
     }
     if(Array.isArray(children)) {
       children.forEach((item) => {
         retval = retval.concat(this.getEditFields(item.props));
       });
     } else if(children !== undefined){
-      let rnd = Math.random();
       retval.push(
-        React.createElement('label', {key: `textNode_${rnd}`}, [ `Text:`,
-          React.createElement('input', {key: `textNodeInput_${rnd}`, ref: `textNode_${rnd}`, defaultValue: children, style:{width: '100%'}})
+        React.createElement('label', {key: `textContent_${_id}`}, [ `Text:`,
+          React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: children, style:{width: '100%'}})
         ])
       );
+      this.fields.push(`${_id}_textContent`);
     }
     return retval;
   }
   renderItemOrEdit() {
     // props are immutable, and we need to modify className
-    const { className, children, ...props } = this.props;
+    const { className, updateState, children, ...props } = this.props;
     if (this.state.editing) {
       return (
         <a ref="editable" {...props} className={`editable-item ${className}`} onClick={(e) => e.preventDefault()}>
@@ -59,6 +69,7 @@ class EditableAnchor extends Component{
             <div className="flex-item-auto">
               <div  className="flex-it flex-col controls">
                 {this.getEditFields(this.props)}
+                <button className="saver" onClick={(e) => this.save(e)}>Save</button>
               </div>
               <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
                 <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
