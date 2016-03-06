@@ -91,12 +91,6 @@ class Home extends Component{
     var children =  el.children.length > 0 ? el.children.map((child) => this.createElement(child)) : el.textContent;
     return React.createElement(this.renderEditable(el.tag), el.attributes, this.renderChildren(el.tag) ? children : undefined);
   }
-  // we don't want the toolbar in our formatted output.
-  createCleanElement(el) {
-    el.attributes.className = el.classList.length ? el.classList.join(' ') : null;
-    var children =  el.children.length > 0 ? el.children.map((child) => this.createElement2(child)) : el.textContent;
-    return React.createElement(el.tag, el.attributes, this.renderChildren(el.tag) ? children : undefined);
-  }
   render() {
     return (
       <div>
