@@ -82,7 +82,7 @@ class EditableAnchor extends Component{
       return (
         <a ref="editable" {...props} className={`editable-item ${className}`} onClick={(e) => e.preventDefault()}>
           {children}
-          <Toolbar onClick={(e) => this.toggleEditing(e)}/>
+          {this.props.updateState && <Toolbar onClick={(e) => this.toggleEditing(e)}/>}
         </a>
       )
     }
