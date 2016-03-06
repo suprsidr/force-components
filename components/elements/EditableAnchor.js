@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Toolbar from '../Toolbar';
+import Modal from 'react-modal';
 
 class EditableAnchor extends Component{
   constructor(props) {
@@ -7,6 +8,7 @@ class EditableAnchor extends Component{
     this.fields = [];
     this.state = {
       editing: false,
+      modalIsOpen: false,
       dims: {
         height: 0,
         width: 0
@@ -27,6 +29,7 @@ class EditableAnchor extends Component{
     const styles = window.getComputedStyle(this.refs.editable, null);
     this.setState({
       editing: !this.state.editing,
+      modalIsOpen: !this.state.modalIsOpen,
       dims: {
         height: styles.getPropertyValue('height'),
         width: styles.getPropertyValue('width')
@@ -62,21 +65,34 @@ class EditableAnchor extends Component{
   renderItemOrEdit() {
     // props are immutable, and we need to modify className
     const { className, updateState, children, ...props } = this.props;
+    const customStyles = {
+      content: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        margin: 'auto',
+        width: '50%',
+        height: '50%'
+      }
+    };
     if (this.state.editing) {
       return (
-        <a ref="editable" {...props} className={`editable-item ${className}`} onClick={(e) => e.preventDefault()}>
-          <div className="flex-it flex-wrap edit-box" style={this.state.dims}>
-            <div className="flex-item-auto">
-              <div  className="flex-it flex-col controls">
-                {this.getEditFields(this.props)}
-                <button className="saver" onClick={(e) => this.save(e)}>Save</button>
+        <div ref="editable" style={this.state.dims}>
+          <Modal isOpen={this.state.modalIsOpen} style={customStyles} >
+            <div className="flex-it flex-wrap edit-box" style={{position: 'relative'}}>
+              <div className="flex-item-auto">
+                <div  className="flex-it flex-col controls">
+                  {this.getEditFields(this.props)}
+                  <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
+                </div>
+                <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
+                  <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
+                </i>
               </div>
-              <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
-                <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
-              </i>
             </div>
-          </div>
-        </a>
+          </Modal>
+        </div>
       )
     } else {
       return (
