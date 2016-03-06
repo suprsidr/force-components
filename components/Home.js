@@ -51,11 +51,11 @@ class Home extends Component{
           this.state.elements.map((el) => this.createElement(el))
         )
       )
-      .replace(/^<junk>/, '')
-      .replace(/<\/junk>$/, '')
+      .replace(/(^<junk>|<\/junk>$)/g, '')
     );
     this.renderingOutput = false;
     // preserve ampersands in links & src
+    //TODO refine this so body ampersands are not affected
     return result.replace(/&amp;/g, '&');
   }
   getDomMap(el, id) {
