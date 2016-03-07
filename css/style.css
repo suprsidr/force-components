@@ -328,3 +328,16 @@ i:hover {
 .text-center {
   text-align: center;
 }
+
+.top-bar .react-link {
+  color: #00d8ff;
+  display: inline-block;
+  font-size: 24px;
+  height: 38px;
+  font-family: proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+  padding: 0 1rem 0 0;
+}
+.top-bar .react-link img {
+  display: inline-block;
+  vertical-align: middle;
+}
