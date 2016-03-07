@@ -99,6 +99,7 @@ class MerchPack extends Component{
   }
   createElement(el) {
     el.attributes.className = el.classList.length ? el.classList.join(' ') : null;
+    el.attributes.textContent = el.textContent;
     el.attributes.updateState = !this.renderingOutput ? (obj) => this.updateStateFromChild(obj) : null;
     var children =  el.children.length > 0 ? el.children.map((child) => this.createElement(child)) : el.textContent;
     return React.createElement(this.renderEditable(el.tag), el.attributes, this.renderChildren(el.tag) ? children : undefined);

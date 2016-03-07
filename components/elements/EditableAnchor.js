@@ -38,13 +38,16 @@ class EditableAnchor extends Component{
     console.log(this);
     let retval = [];
     // remove keys we just don't wand editable fields for.
-    const { _id, className, updateState, children, ...props } = attributes;
+    const { _id, className, updateState, children, textContent, ...props } = attributes;
     // attributes
     // require img src attribute
     if(tag === 'img' && !props.src) {
       props.src = '';
     }
     for(let prop in props) {
+      if(prop === 'style') {
+        continue;
+      }
       retval.push(
         React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
           React.createElement('input', {key: `${_id}_${prop}`, ref: `${_id}_attributes_${prop}`, defaultValue: props[prop], style:{width: '100%'}})
@@ -55,11 +58,20 @@ class EditableAnchor extends Component{
     // children
     if(Array.isArray(children)) {
       children.forEach((item) => {
-        console.log('item: ', item);
-        retval = retval.concat(this.getEditFields(item.props, item.type));
+        //console.log('item: ', item);
+        retval = retval.concat(this.getEditFields(item.props, item.type, textContent));
       });
     }
-    // textContent
+    // this item has children and textContent eg. text w/ span and anchors
+    /*if(textContent !== ''){
+      retval.push(
+        React.createElement('label', {key: `textContent_${_id}`}, [ `${tag} ${className || ''} Text:`,
+          React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: textContent, style:{width: '100%'}})
+        ])
+      );
+      this.fields.push(`${_id}_textContent`);
+    }*/
+    // textContent as child
     if(!Array.isArray(children) && children !== undefined){
       retval.push(
         React.createElement('label', {key: `textContent_${_id}`}, [ `${tag} ${className || ''} Text:`,
@@ -72,7 +84,7 @@ class EditableAnchor extends Component{
   }
   renderItemOrEdit() {
     // props are immutable, and we need to modify className
-    const { className, updateState, children, ...props } = this.props;
+    const { className, updateState, children, textContent, ...props } = this.props;
     const customStyles = {
       content: {
         top: 0,
@@ -91,7 +103,7 @@ class EditableAnchor extends Component{
             <div className="flex-it flex-wrap edit-box" style={{position: 'relative'}}>
               <div className="flex-item-auto">
                 <div  className="flex-it flex-col controls">
-                  {this.getEditFields(this.props, this.type)}
+                  {this.getEditFields(this.props, this.type, textContent)}
                   <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
                 </div>
                 <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
