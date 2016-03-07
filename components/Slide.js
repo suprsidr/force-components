@@ -6,8 +6,7 @@ class Slide extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: false,
-      modalIsOpen: false,
+      editing: false
     };
   }
   updateState(e) {
@@ -56,8 +55,7 @@ class Slide extends Component {
     e.preventDefault();
     e.stopPropagation();
     this.setState({
-      editing: !this.state.editing,
-      modalIsOpen: !this.state.modalIsOpen,
+      editing: !this.state.editing
     });
   }
   dragStarted(e) {
@@ -112,7 +110,7 @@ class Slide extends Component {
       return (
         <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={false}>
           <img data-idx={this.props.index} {...slide.img[0]} />
-          <Modal isOpen={this.state.modalIsOpen} style={customStyles} >
+          <Modal isOpen={this.state.editing} style={customStyles} >
             <div className="flex-it flex-wrap edit-box">
               <div className="flex-item-auto">
                 <div  className="flex-it flex-col controls">
