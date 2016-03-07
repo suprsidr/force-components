@@ -36,10 +36,16 @@ class EditableAnchor extends Component{
       }
     });
   }
-  getEditFields(attributes) {
+  getEditFields(attributes, tag) {
+    console.log(this);
     let retval = [];
     // remove keys we just don't wand editable fields for.
     const { _id, className, updateState, children, ...props } = attributes;
+    // attributes
+    // require img src attribute
+    if(tag === 'img' && !props.src) {
+      props.src = '';
+    }
     for(let prop in props) {
       retval.push(
         React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
@@ -48,13 +54,17 @@ class EditableAnchor extends Component{
       );
       this.fields.push(`${_id}_attributes_${prop}`);
     }
+    // children
     if(Array.isArray(children)) {
       children.forEach((item) => {
-        retval = retval.concat(this.getEditFields(item.props));
+        console.log('item: ', item);
+        retval = retval.concat(this.getEditFields(item.props, item.type));
       });
-    } else if(children !== undefined){
+    }
+    // textContent
+    if(!Array.isArray(children) && children !== undefined){
       retval.push(
-        React.createElement('label', {key: `textContent_${_id}`}, [ `Text:`,
+        React.createElement('label', {key: `textContent_${_id}`}, [ `${tag} ${className || ''} Text:`,
           React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: children, style:{width: '100%'}})
         ])
       );
@@ -73,7 +83,7 @@ class EditableAnchor extends Component{
         bottom: 0,
         margin: 'auto',
         width: '50%',
-        height: '50%'
+        height: '60%'
       }
     };
     if (this.state.editing) {
@@ -83,7 +93,7 @@ class EditableAnchor extends Component{
             <div className="flex-it flex-wrap edit-box" style={{position: 'relative'}}>
               <div className="flex-item-auto">
                 <div  className="flex-it flex-col controls">
-                  {this.getEditFields(this.props)}
+                  {this.getEditFields(this.props, this.type)}
                   <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
                 </div>
                 <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
