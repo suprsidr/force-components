@@ -65,6 +65,18 @@ class MerchPack extends Component{
           if(next.name === 'class'){
             return prev;
           }
+          // style needs to be converted to an object and camelCase any dashed declarations;
+          if(next.name === 'style') {
+            prev[next.name] = next.value.replace(/(\;$|\s)/g, '')
+              .replace(/-(.)/g, ($0, $1) => $1.toUpperCase())
+              .split(';')
+              .reduce((prev, next) => {
+                var parts = next.split(':');
+                prev[parts[0]] = parts[1];
+                return prev;
+              }, {});
+            return prev;
+          }
           prev[next.name] = next.value;
           return prev;
         }, {_id: id, key: id}),
