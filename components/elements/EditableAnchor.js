@@ -34,48 +34,45 @@ class EditableAnchor extends Component{
       }
     });
   }
-  getEditFields(attributes, tag) {
-    console.log(this);
+  getEditFields(id) {
+    // lokup our element from state.elements
+    const arr = id.toString().split('_');
+    const el = arr.reduce((prev, next) => {
+      return prev[next];
+    }, this.props.elements);
+
     let retval = [];
     // remove keys we just don't wand editable fields for.
-    const { _id, className, updateState, children, textContent, ...props } = attributes;
+    const { _id, key, className, updateState, elements, ...props } = el.attributes;
     // attributes
     // require img src attribute
-    if(tag === 'img' && !props.src) {
+    if(el.tag === 'img' && !props.src) {
       props.src = '';
     }
     for(let prop in props) {
-      if(prop === 'style') {
-        continue;
+      if(props.hasOwnProperty(prop)) {
+        if(prop === 'style') {
+          continue;
+        }
+        retval.push(
+          React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
+            React.createElement('input', {key: `${_id}_${prop}`, ref: `${_id}_attributes_${prop}`, defaultValue: props[prop], style:{width: '100%'}})
+          ])
+        );
+        this.fields.push(`${_id}_attributes_${prop}`);
       }
-      retval.push(
-        React.createElement('label', {key: `${prop}_${_id}`}, [ `${prop}:`,
-          React.createElement('input', {key: `${_id}_${prop}`, ref: `${_id}_attributes_${prop}`, defaultValue: props[prop], style:{width: '100%'}})
-        ])
-      );
-      this.fields.push(`${_id}_attributes_${prop}`);
     }
     // children
-    if(Array.isArray(children)) {
-      children.forEach((item) => {
-        //console.log('item: ', item);
-        retval = retval.concat(this.getEditFields(item.props, item.type, textContent));
+    if(Array.isArray(el.children)) {
+      el.children.forEach((child) => {
+        retval = retval.concat(this.getEditFields(child.attributes._id));
       });
     }
-    // this item has children and textContent eg. text w/ span and anchors
-    /*if(textContent !== ''){
+    // textContent
+    if(el.textContent !== ''){
       retval.push(
-        React.createElement('label', {key: `textContent_${_id}`}, [ `${tag} ${className || ''} Text:`,
-          React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: textContent, style:{width: '100%'}})
-        ])
-      );
-      this.fields.push(`${_id}_textContent`);
-    }*/
-    // textContent as child
-    if(!Array.isArray(children) && children !== undefined){
-      retval.push(
-        React.createElement('label', {key: `textContent_${_id}`}, [ `${tag} ${className || ''} Text:`,
-          React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: children, style:{width: '100%'}})
+        React.createElement('label', {key: `textContent_${_id}`}, [ `${el.tag} ${className || ''} Text ${_id.slice(-1)}:`,
+          React.createElement('input', {key: `${_id}_textContent`, ref: `${_id}_textContent`, defaultValue: el.textContent, style:{width: '100%'}})
         ])
       );
       this.fields.push(`${_id}_textContent`);
@@ -103,7 +100,7 @@ class EditableAnchor extends Component{
             <div className="flex-it flex-wrap edit-box" style={{position: 'relative'}}>
               <div className="flex-item-auto">
                 <div  className="flex-it flex-col controls">
-                  {this.getEditFields(this.props, this.type, textContent)}
+                  {this.getEditFields(this.props._id)}
                   <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
                 </div>
                 <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
@@ -126,6 +123,6 @@ class EditableAnchor extends Component{
   render() {
     return this.renderItemOrEdit()
   }
-};
+}
 
 export default EditableAnchor;
