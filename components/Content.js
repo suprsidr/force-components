@@ -71,7 +71,7 @@ class Content extends Component {
   }
   render() {
     return (
-      <div id="app">
+      <div id="app" className="main_content">
         <div><button className="button" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button></div>
         <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
         <textarea value={this.getDangerousHtml()}/>

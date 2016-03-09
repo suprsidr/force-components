@@ -161,7 +161,6 @@
   max-width: 1000px;
   padding: 10px;
   border: 1px solid #999;
-  margin: 0 auto;
 }
 #app:after {
   display: table;
@@ -282,11 +281,10 @@ i:hover {
 }
 .main_content {
   background-color: white;
-  margin: 0 auto;
+  margin: 3em auto;
   max-width: 960px;
   min-height: 300px;
   padding: 0 0 48px;
-  font-size: 0.8125em;
 }
 .main_content div {
   position: relative;
@@ -328,7 +326,20 @@ i:hover {
 .text-center {
   text-align: center;
 }
-
+.top-bar {
+  background: #222 none repeat scroll 0 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  color: #fafafa;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  margin-bottom: 3rem;
+}
+.top-bar, .top-bar ul {
+  background-color: #222;
+}
 .top-bar .react-link {
   color: #00d8ff;
   display: inline-block;
