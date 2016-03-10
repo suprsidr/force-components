@@ -71,10 +71,16 @@ class Content extends Component {
   }
   render() {
     return (
-      <div id="app" className="main_content">
-        <div><button className="button" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button></div>
-        <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
-        <textarea value={this.getDangerousHtml()}/>
+      <div id="app" className="row">
+        <div className="small-12 columns">
+          <button className="button" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button>
+        </div>
+        <div className="small-12 columns">
+          <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
+        </div>
+        <div className="small-12 columns">
+          <textarea value={this.getDangerousHtml()}/>
+        </div>
       </div>
     )
   }

@@ -158,23 +158,13 @@
 }
 #app {
   position: relative;
-  max-width: 1000px;
-  padding: 10px;
   border: 1px solid #999;
+  padding-top: 0.9375rem;
 }
-#app:after {
-  display: table;
-  height: 0;
-  content: '';
-  clear: both;
-}
-#app >div > div:first-of-type {
-  position: absolute;
-  top: -40px;
-}
-#app a {
+
+a.slideLink {
   display: inline-block;
-  max-width: 195.6px;
+  max-width: 20%;
   float: left;
   padding: 2px;
 }
@@ -182,8 +172,19 @@
   width: 100%;
   height: auto;
 }
-
-#app h2, #app section {
+.nivoSlider {
+  margin-bottom: 0.9375rem;
+}
+.nivoSlider::after {
+  clear: both;
+}
+.nivoSlider::after, .nivoSlider::before {
+  content: " ";
+  display: table;
+  flex-basis: 0;
+  order: 1;
+}
+.nivoSlider h2, .nivoSlider section {
   display: none;
 }
 #app .dragging-over {
@@ -273,18 +274,8 @@ i:hover {
 .editable-item:hover .toolbar {
   display: inline-block;
 }
-.main_content *, .main_content *::before, .main_content *::after {
-  box-sizing: border-box;
-}
-.main_content *, .main_content *::before, .main_content *::after {
-  box-sizing: border-box;
-}
 .main_content {
-  background-color: white;
-  margin: 3em auto;
-  max-width: 960px;
-  min-height: 300px;
-  padding: 0 0 48px;
+  margin: 100px auto 3rem;
 }
 .main_content div {
   position: relative;

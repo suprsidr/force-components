@@ -129,9 +129,11 @@ class MerchPack extends Component{
   }
   render() {
     return (
-      <div>
-        <textarea ref="textarea" placeholder="Paste HTML Here" style={{display: 'block', width: '100%', maxWidth: '960px', height: '400px', margin: '0 auto'}} onChange={(e) => this.onChange(e)}/>
-        <div className="main_content homepage">
+      <div className="row">
+        <div className="small-12 columns">
+          <textarea ref="textarea" placeholder="Paste HTML Here" style={{display: 'block', width: '100%', maxWidth: '960px', height: '400px', margin: '0 auto'}} onChange={(e) => this.onChange(e)}/>
+        </div>
+        <div className="small-12 columns">
           {this.state.elements.map((el) => this.createElement(el))}
         </div>
       </div>
