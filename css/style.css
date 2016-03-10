@@ -1,5 +1,19 @@
-/*html {font-size: 80%;}  keep w/ forcerc.com */
-
+html {
+  min-height: 100%;
+}
+body {
+  height: auto;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 70px;
+}
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+}
 /* flexbox classes */
 .flex-it {
   display: -webkit-box;
@@ -144,6 +158,11 @@
   flex: 1;
 }
 /* end flexbox classes */
+.row {max-width: 960px;}
+.row .row.collapse {
+  margin-left: -0.9375rem;
+  margin-right: -0.9375rem;
+}
 [role="nav"] {
   margin: 0;
   padding: 0;
@@ -217,6 +236,7 @@ a.slideLink {
 }
 .editable-item {
   position: relative;
+  display: inline-block;
 }
 .toolbar {
   position: absolute;
@@ -275,7 +295,7 @@ i:hover {
   display: inline-block;
 }
 .main_content {
-  margin: 100px auto 3rem;
+  padding-top: 100px;
 }
 .main_content div {
   position: relative;
