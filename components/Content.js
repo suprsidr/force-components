@@ -38,7 +38,7 @@ class Content extends Component {
       result += '\n';
       result += '\n';
     })
-    return result.replace(/&amp;/g, '&'); //html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputTemplate, {slides: this.state.slides})).replace('<i>', '').replace('</i>', ''));
+    return result;
   }
   getElements(html) {
     let element = document.createElement('div');

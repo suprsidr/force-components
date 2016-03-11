@@ -53,9 +53,7 @@ class MerchPack extends Component{
         .replace(/(^<junk>|<\/junk>$)/g, '')
     );
     this.renderingOutput = false;
-    // preserve ampersands in links & src
-    //TODO refine this so body ampersands are not affected
-    return result.replace(/&amp;/g, '&');
+    return result;
   }
   getDomMap(el, id) {
     return {
