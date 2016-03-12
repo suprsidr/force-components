@@ -78,10 +78,12 @@ class MerchPack extends Component{
           return prev;
         }, {_id: id, key: id}),
       children: Array.from(el.childNodes).reduce((prev, next) => {
+        console.log(next);
         let i = prev.length;
         if(next.nodeType === 3 && next.textContent !== '') {
-          var txt = next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ');
+          var txt = next.textContent.replace(/[ \t\r\n]/gm,'').replace(/\s+/g, ' ');
           if(txt !== '') {
+            console.log('txt: ',txt);
             let clist = Array.from(el.classList);
             clist.unshift(el.tagName.toLowerCase());
             prev.push({
