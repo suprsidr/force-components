@@ -127,7 +127,7 @@ i:hover {
 }
 .edit-box > div {
   background-color: white;
-  padding: 30px;
+  padding-top: 30px;
   width: 100%;
   min-height: 100%;
 }

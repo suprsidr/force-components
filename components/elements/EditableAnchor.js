@@ -97,12 +97,10 @@ class EditableAnchor extends Component{
       return (
         <div ref="editable" style={this.state.dims}>
           <Modal isOpen={this.state.editing} style={customStyles} >
-            <div className="flex-it flex-wrap edit-box" style={{position: 'relative'}}>
-              <div className="flex-item-auto">
-                <div  className="flex-it flex-col controls">
-                  {this.getEditFields(this.props._id)}
-                  <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
-                </div>
+            <div className="row edit-box" style={{position: 'relative'}}>
+              <div className="small-12 columns">
+                {this.getEditFields(this.props._id)}
+                <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
                 <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
                   <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
                 </i>

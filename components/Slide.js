@@ -111,39 +111,37 @@ class Slide extends Component {
         <a href={slide.href} data-idx={this.props.index} className={`editable-item ${slide.className.join(' ')}`} onClick={(e) => e.preventDefault()} draggable={false}>
           <img data-idx={this.props.index} {...slide.img[0]} />
           <Modal isOpen={this.state.editing} style={customStyles} >
-            <div className="flex-it flex-wrap edit-box">
-              <div className="flex-item-auto">
-                <div  className="flex-it flex-col controls">
-                  <label>
-                    Link:
-                    <input ref="href" defaultValue={slide.href} style={{width: '100%'}}/>
-                  </label>
-                  <label>
-                    Alt Text:
-                    <input ref="alt" defaultValue={slide.img[0].alt} style={{width: '100%'}}/>
-                  </label>
-                  <label>
-                    Image Source:
-                    <input ref="data-source" defaultValue={slide.img[0]['data-source']} style={{width: '100%'}}/>
-                  </label>
-                  <label>
-                    Image Mobile Source:
-                    <input ref="data-mobile-source" defaultValue={slide.img[0]['data-mobile-source'] || ''} style={{width: '100%'}}/>
-                  </label>
-                  <label>
-                    Tab Text:
-                    <input ref="heading" defaultValue={slide.heading[0].text} style={{width: '100%'}}/>
-                  </label>
-                  <label>
-                    Teaser Text:
-                    <input ref="section" defaultValue={slide.section[0].text} style={{width: '100%'}}/>
-                  </label>
-                  <input type="hidden" ref="className" defaultValue={slide.className.join(' ')}/>
-                  <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
-                  <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
-                    <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
-                  </i>
-                </div>
+            <div className="row edit-box">
+              <div className="small-12 columns">
+                <label>
+                  Link:
+                  <input ref="href" defaultValue={slide.href} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Alt Text:
+                  <input ref="alt" defaultValue={slide.img[0].alt} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Image Source:
+                  <input ref="data-source" defaultValue={slide.img[0]['data-source']} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Image Mobile Source:
+                  <input ref="data-mobile-source" defaultValue={slide.img[0]['data-mobile-source'] || ''} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Tab Text:
+                  <input ref="heading" defaultValue={slide.heading[0].text} style={{width: '100%'}}/>
+                </label>
+                <label>
+                  Teaser Text:
+                  <input ref="section" defaultValue={slide.section[0].text} style={{width: '100%'}}/>
+                </label>
+                <input type="hidden" ref="className" defaultValue={slide.className.join(' ')}/>
+                <button className="saver button" onClick={(e) => this.save(e)}>Save</button>
+                <i title="Close" href="#close" className="edit-icon-link" onClick={(e) => this.toggleEditing(e)}>
+                  <svg className="icon icon-edit"><use xlinkHref="#icon-cross"/></svg>
+                </i>
               </div>
             </div>
           </Modal>
