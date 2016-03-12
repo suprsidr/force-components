@@ -81,8 +81,8 @@ class MerchPack extends Component{
         console.log(next);
         let i = prev.length;
         if(next.nodeType === 3 && next.textContent !== '') {
-          var txt = next.textContent.replace(/[ \t\r\n]/gm,'').replace(/\s+/g, ' ');
-          if(txt !== '') {
+          var txt = next.textContent.replace(/[\t\r\n]/gm,'').replace(/\s{2,}/g, ' ');
+          if(txt.match(/[\d\w]/g)) {
             console.log('txt: ',txt);
             let clist = Array.from(el.classList);
             clist.unshift(el.tagName.toLowerCase());
@@ -101,13 +101,7 @@ class MerchPack extends Component{
       }, []),
       classList: Array.from(el.classList),
       tag: el.tagName.toLowerCase(),
-      textContent: '' /*Array.from(el.childNodes).reduce((prev, next) => {
-        if(next.nodeType === 3) {
-          prev += next.textContent.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/\s{2,}/g, ' ');
-        }
-        return prev;
-      }, '')*/
-
+      textContent: ''
     }
   }
   renderChildren(tag) {
