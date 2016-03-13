@@ -13,17 +13,6 @@ class Content extends Component {
       slides: [],
       showMobile: false
     };
-    //this.stateLog = [{time: this.getTimeStamp(), state: this.state.slides}];
-  }
-  componentDidMount() {
-    request
-      .get('/slides')
-      .end((err, res) => {
-        err ? console.log(err) : '';//console.log(res);
-        this.setState( {
-          slides: this.getElements(res.text)
-        });
-      });
   }
   updateState(obj, cb) {
     this.setState(obj, () => {
@@ -31,7 +20,18 @@ class Content extends Component {
       console.log(this.state);
     });
   }
-  getDangerousHtml() {
+  onChange(e) {
+    this.updateState(
+      {
+        slides: this.getElements(e.target.value)
+      },
+      () => {
+        const ta = this.refs.textarea;
+        ta.value = this.setTextAreaValue();
+      }
+    );
+  }
+  setTextAreaValue() {
     var result = '';
     this.state.slides.forEach((slide, i) => {
       result += html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputSlide, {slides: this.state.slides, index: i})));
@@ -59,8 +59,6 @@ class Content extends Component {
       }
     ));
 
-    //console.log(anchors);
-
     return anchors;
   }
   toggleShowMobile(e) {
@@ -76,10 +74,19 @@ class Content extends Component {
           <button className="button" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button>
         </div>
         <div className="small-12 columns">
-          <Slides slides={this.state.slides} updateState={(obj) => this.updateState(obj)} showMobile={this.state.showMobile}/>
+          <Slides
+            slides={this.state.slides}
+            updateState={(obj) => this.updateState(
+              obj,
+              () => {
+                const ta = this.refs.textarea;
+                ta.value = this.setTextAreaValue();
+              }
+            )}
+            showMobile={this.state.showMobile}/>
         </div>
         <div className="small-12 columns">
-          <textarea value={this.getDangerousHtml()}/>
+          <textarea ref="textarea" placeholder="Paste HTML Here" onChange={(e) => this.onChange(e)}/>
         </div>
       </div>
     )
