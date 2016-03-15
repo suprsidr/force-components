@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
-import request from 'superagent';
 import OutputSlide from './OutputSlide';
 import html from 'html';
 

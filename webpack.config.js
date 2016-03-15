@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './components/App.js',
+  entry: './app/components/App.js',
   output: {
-  	path: './build',
-    filename: 'bundle.js'       
+  	path: './app',
+    filename: 'app.js'
   },
   module: {
     loaders: [
@@ -16,5 +16,19 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  target: 'electron',
+  externals: [
+    (function () {
+      var IGNORES = [
+        'electron'
+      ];
+      return function (context, request, callback) {
+        if (IGNORES.indexOf(request) >= 0) {
+          return callback(null, "require('" + request + "')");
+        }
+        return callback();
+      };
+    })()
+  ]
 };

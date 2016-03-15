@@ -1,0 +1,37 @@
+{
+  "name": "forcerc-components",
+  "productName": "ForceRC Markup Generator",
+  "version": "1.1.0",
+  "description": "Components for ForceRC",
+  "main": "background.js",
+  "scripts": {
+    "prestart": "npm run task",
+    "start": "node server/server.js",
+    "start-dev": "node server/dev-server.js",
+    "lint": "eslint components",
+    "task": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suprsidr/force-components.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Wayne Patterson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suprsidr/force-components.git/issues"
+  },
+  "homepage": "https://github.com/suprsidr/force-components.git#readme",
+  "dependencies": {
+    "fs-jetpack": "^0.7.0",
+    "history": "^1.17.0",
+    "html": "0.0.10",
+    "react": "^0.14",
+    "react-dom": "^0.14.0",
+    "react-modal": "^0.6.1",
+    "react-router": "^1.0.1",
+    "win-tfs": "^1.0.1"
+  }
+}
