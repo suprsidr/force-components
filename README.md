@@ -8,8 +8,8 @@ Built on the awesome work of [Jakub Szwacz](https://github.com/szwacz) and his [
 The only development dependency of this project is [Node.js](https://nodejs.org). So just make sure you have it installed.
 Then type few commands known to every Node developer...
 ```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
+git clone https://github.com/suprsidr/force-components.git
+cd force-components
 npm install
 npm start
 ```
