@@ -1,16 +1,6 @@
-electron-boilerplate
-==============
-Comprehensive boilerplate application for [Electron runtime](http://electron.atom.io).  
-
-Scope of this project:
-
-- Provide basic structure of the application so you can much easier grasp what should go where.
-- Give you cross-platform development environment, which works the same way on OSX, Windows and Linux.
-- Generate ready for distribution installers of your app for all three operating systems.
-
-Not in the scope:
-
-- Imposing on you any framework (e.g. Angular, React). You can integrate the one which makes most sense for you.
+ForceRC Markup Generator
+========================
+Markup generator for ForceRC espots, cat headers, slideshows etc.
 
 # Quick start
 The only development dependency of this project is [Node.js](https://nodejs.org). So just make sure you have it installed.
