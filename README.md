@@ -2,12 +2,14 @@ ForceRC Markup Generator
 ========================
 Markup generator for ForceRC espots, cat headers, slideshows etc.
 
+Built on the awesome work of [Jakub Szwacz](https://github.com/szwacz) and his [Electron Boilerplate](https://github.com/szwacz/electron-boilerplate)
+
 # Quick start
 The only development dependency of this project is [Node.js](https://nodejs.org). So just make sure you have it installed.
 Then type few commands known to every Node developer...
 ```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
+git clone https://github.com/suprsidr/force-components.git
+cd force-components
 npm install
 npm start
 ```
@@ -150,7 +152,7 @@ There are still a lot of 32-bit Windows installations in use. If you want to sup
 
 The MIT License (MIT)
 
-Copyright (c) 2015-2016 Jakub Szwacz
+Copyright (c) 2015-2016 Wayne Patterson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
