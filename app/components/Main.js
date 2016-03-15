@@ -31,7 +31,7 @@ class Main extends Component {
         </div>
         <footer className="row">
           <div className="small-6 columns">
-            Find this project on <a href="https://github.com/suprsidr/force-components">Github</a>
+            Find this project on <a className="js-external-link" href="https://github.com/suprsidr/force-components">Github</a>
           </div>
           <div className="small-6 columns">
             MIT License (MIT)
