@@ -70,8 +70,20 @@ gulp.task('bundle-watch', bundleTask);
 
 
 var sassTask = function () {
+  var opts = {};
+  switch (utils.getEnvName()) {
+    case 'development':
+      opts.outputStyle = 'nested';
+      break;
+    case 'production':
+      opts.outputStyle = 'compressed';
+      break;
+    default:
+      opts.outputStyle = 'nested';
+      break;
+  }
   return gulp.src('app/css/scss/app.scss')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sass(opts).on('error', sass.logError))
     .pipe(gulp.dest(destDir.path('css')));
 };
 
