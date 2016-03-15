@@ -31,11 +31,10 @@ class Main extends Component {
         </div>
         <footer className="row">
           <div className="small-6 columns">
-            &copy; 2016 Wayne Patterson<br />
-            Fork me on <a href="https://github.com/suprsidr/force-components">Github</a>
+            Find this project on <a href="https://github.com/suprsidr/force-components">Github</a>
           </div>
           <div className="small-6 columns">
-            This is free and unencumbered software released into the public domain.
+            MIT License (MIT)
           </div>
         </footer>
       </div>
