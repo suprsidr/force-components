@@ -8,13 +8,13 @@ class Main extends Component {
         <div className="top-bar" role="nav">
           <div className="top-bar-left">
             <ul className="menu">
-              <li className="menu-text">ForceRC Markup Generator</li>
+              <li className="menu-text hide-for-small-only">ForceRC Markup Generator</li>
               <li><IndexLink to="/">Home</IndexLink></li>
               <li><Link to="/slides" activeStyle={{ color: '#00d8ff' }}>Homepage Slides</Link></li>
               <li><Link to="/merch" activeStyle={{ color: '#00d8ff' }}>MerchPack</Link></li>
             </ul>
           </div>
-          <div className="top-bar-right">
+          <div className="top-bar-right hide-for-medium-only hide-for-small-only">
             <ul className="menu">
               <li>Built with</li>
               <li>
