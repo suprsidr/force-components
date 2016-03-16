@@ -2,6 +2,8 @@ ForceRC Markup Generator
 ========================
 Markup generator for ForceRC espots, cat headers, slideshows etc.
 
+Allowing our jr. devs to edit our marketing templates without breaking anything.
+
 Built on the awesome work of [Jakub Szwacz](https://github.com/szwacz) and his [Electron Boilerplate](https://github.com/szwacz/electron-boilerplate)
 
 # Quick start
