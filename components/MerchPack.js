@@ -6,10 +6,12 @@ import html from 'html';
 class MerchPack extends Component{
   constructor(props) {
     super(props);
-    this.renderingOutput = false,
-      this.state = {
-        elements: []
-      };
+    this.renderingOutput = false;
+    this.state = {
+      elements: []
+    };
+    this.editing = false;
+    this.ctrlKeyPressed = false;
   }
   updateState(els, cb) {
     this.setState({elements: els}, () => {
@@ -39,6 +41,43 @@ class MerchPack extends Component{
     let el = document.createElement('div');
     el.innerHTML = e.target.value;
     this.updateState(Array.from(el.children).map((e, i) => this.getDomMap(e, i)));
+    if(this.editing) {
+      this.editing = false;
+      return;
+    }
+    this.refs.resultsTab.click();
+  }
+  onKeyUp(e) {
+    if(e.keyCode === 17) {
+      this.ctrlKeyPressed = false;
+    }
+  }
+  onKeyDown(e) {
+    if(e.keyCode === 17) {
+      return this.ctrlKeyPressed = true;
+    }
+    if(this.ctrlKeyPressed && e.keyCode === 86) {
+      return;
+    }
+    this.editing = true;
+  }
+  onTabClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.target.classList.contains('is-active')) return;
+    let sib = e.target.parentNode.parentNode.querySelector('.is-active');
+    sib.classList.remove('is-active');
+    sib.setAttribute('aria-selected', false);
+    e.target.classList.add('is-active');
+    e.target.setAttribute('aria-selected', true);
+    let panels = Array.from(this.refs.tabContent.children);
+    panels.forEach((panel) => {
+      if(panel.id === e.target.getAttribute('href').replace('#', '')) {
+        panel.classList.add('is-active');
+      } else {
+        panel.classList.remove('is-active');
+      }
+    });
   }
   setTextAreaValue() {
     this.renderingOutput = true;
@@ -82,7 +121,6 @@ class MerchPack extends Component{
         if(next.nodeType === 3 && next.textContent !== '') {
           var txt = next.textContent.replace(/[\t\r\n]/gm,'').replace(/\s{2,}/g, ' ');
           if(txt.match(/[\d\w]/g)) {
-            console.log('txt: ',txt);
             let clist = Array.from(el.classList);
             clist.unshift(el.tagName.toLowerCase());
             prev.push({
@@ -124,10 +162,20 @@ class MerchPack extends Component{
     return (
       <div className="row">
         <div className="small-12 columns">
-          <textarea ref="textarea" placeholder="Paste HTML Here" style={{display: 'block', width: '100%', height: '400px'}} onChange={(e) => this.onChange(e)}/>
+          <ul className="tabs" data-tabs id="example-tabs">
+            <li className="tabs-title"><a className="is-active" href="#panel1" aria-selected="true" onClick={(e) => this.onTabClick(e)} ref="codeTab">&lt;&nbsp;/&gt;</a></li>
+            <li className="tabs-title"><a href="#panel2" onClick={(e) => this.onTabClick(e)} ref="resultsTab">Results</a></li>
+          </ul>
         </div>
         <div className="small-12 columns">
-          {this.state.elements.map((el) => this.createElement(el))}
+          <div className="row" ref="tabContent">
+            <div className="small-12 columns tabs-panel is-active" id="panel1">
+              <textarea ref="textarea" placeholder="Paste HTML Here" style={{display: 'block', width: '100%', height: '400px'}} onChange={(e) => this.onChange(e)} onKeyUp={(e) => this.onKeyUp(e)} onKeyDown={(e) => this.onKeyDown(e)}/>
+            </div>
+            <div className="small-12 columns tabs-panel" id="panel2">
+              {this.state.elements.map((el) => this.createElement(el))}
+            </div>
+          </div>
         </div>
       </div>
     )
