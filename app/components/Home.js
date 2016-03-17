@@ -8,7 +8,7 @@ export default class Home extends Component{
           <h2>Instructions:</h2>
           <ol>
             <li>Paste HTML</li>
-            <li>Edite Rendered Items</li>
+            <li>Edit Rendered Items</li>
             <li>Save :)</li>
             <li>Copy New HTML</li>
             <li>Done!</li>
