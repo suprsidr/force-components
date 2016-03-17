@@ -223,3 +223,10 @@ i:hover {
   display: inline-block;
   vertical-align: middle;
 }
+.tabs {
+  display: inline-block;
+}
+.tabs-title > a {
+  font-weight: bold;
+  font-size: 1rem;
+}
