@@ -12,27 +12,20 @@ class Content extends Component {
     super(props);
     this.state = {
       slides: [],
-      files: [],
       showMobile: false
     };
     this.basePath = path.resolve('C:/xampp/htdocs/StaticCMSContent-dev/ForceRc/snippets/homepage/');
   }
   componentDidMount() {
     this.loadFile('home-glamour-forcerc.html');
-    this.updateState({files: jetpack.list(this.basePath)});
   }
   loadFile(file) {
     var code = jetpack.read(path.join(this.basePath, file), 'utf8');
     this.updateState( {
       slides: this.getElements(code)
     }, () => {
-      var result = '';
-      this.state.slides.forEach((slide, i) => {
-        result += html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputSlide, {slides: this.state.slides, index: i})));
-        result += '\n';
-        result += '\n';
-      });
-      this.refs.textarea.value = result;
+      const ta = this.refs.textarea;
+      ta.value = this.setTextAreaValue();
     });
   }
   updateState(obj, cb) {
