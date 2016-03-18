@@ -170,7 +170,14 @@ class MerchPack extends Component{
         <div className="small-12 columns">
           <div className="row" ref="tabContent">
             <div className="small-12 columns tabs-panel is-active" id="panel1">
-              <textarea ref="textarea" placeholder="Paste HTML Here" style={{display: 'block', width: '100%', height: '400px'}} onChange={(e) => this.onChange(e)} onKeyUp={(e) => this.onKeyUp(e)} onKeyDown={(e) => this.onKeyDown(e)}/>
+              <textarea
+                ref="textarea"
+                placeholder="Paste HTML Here"
+                style={{display: 'block', width: '100%', height: '400px'}}
+                onChange={(e) => this.onChange(e)}
+                onKeyUp={(e) => this.onKeyUp(e)}
+                onKeyDown={(e) => this.onKeyDown(e)}
+              />
             </div>
             <div className="small-12 columns tabs-panel" id="panel2">
               {this.state.elements.map((el) => this.createElement(el))}
