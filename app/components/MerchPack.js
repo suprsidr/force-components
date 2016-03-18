@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import EditableAnchor from './elements/EditableAnchor';
 import html from 'html';
+import FileBrowser from './FileBrowser';
 
 class MerchPack extends Component{
   constructor(props) {
@@ -94,6 +95,15 @@ class MerchPack extends Component{
     this.renderingOutput = false;
     return result;
   }
+  updateTextAreaValueFromChild(val) {
+    let el = document.createElement('div');
+    el.innerHTML = val;
+    this.updateState(Array.from(el.children).map((e, i) => this.getDomMap(e, i)), () => {
+      const ta = this.refs.textarea;
+      ta.value = this.setTextAreaValue();
+      this.refs.resultsTab.click();
+    });
+  }
   getDomMap(el, id) {
     return {
       attributes: Array.from(el.attributes)
@@ -161,11 +171,16 @@ class MerchPack extends Component{
   render() {
     return (
       <div className="row">
-        <div className="small-12 columns">
+        <div className="small-6 columns">
           <ul className="tabs" data-tabs id="example-tabs">
             <li className="tabs-title"><a className="is-active" href="#panel1" aria-selected="true" onClick={(e) => this.onTabClick(e)} ref="codeTab">&lt; /&gt;</a></li>
             <li className="tabs-title"><a href="#panel2" onClick={(e) => this.onTabClick(e)} ref="resultsTab">Results</a></li>
           </ul>
+        </div>
+        <div className="small-6 columns">
+          <FileBrowser
+            updateTextArea={(val) => this.updateTextAreaValueFromChild(val)}
+          />
         </div>
         <div className="small-12 columns">
           <div className="row" ref="tabContent">
