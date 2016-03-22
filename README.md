@@ -6,6 +6,8 @@ Allowing our jr. devs to edit our marketing templates without breaking anything.
 
 Built on the awesome work of [Jakub Szwacz](https://github.com/szwacz) and his [Electron Boilerplate](https://github.com/szwacz/electron-boilerplate)
 
+The real action is happening in the [electron](https://github.com/suprsidr/force-components/tree/electron) branch.
+
 # Quick start
 The only development dependency of this project is [Node.js](https://nodejs.org). So just make sure you have it installed.
 Then type few commands known to every Node developer...
