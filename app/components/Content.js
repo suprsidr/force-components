@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import OutputSlide from './OutputSlide';
 import html from 'html';
-import jetpack from 'fs-jetpack';
-import path from 'path';
-
+import FileBrowser from './FileBrowser';
 import Slides from './Slides';
 
 class Content extends Component {
@@ -14,13 +12,8 @@ class Content extends Component {
       slides: [],
       showMobile: false
     };
-    this.basePath = path.resolve('C:/xampp/htdocs/StaticCMSContent-dev/ForceRc/snippets/homepage/');
   }
-  componentDidMount() {
-    this.loadFile('home-glamour-forcerc.html');
-  }
-  loadFile(file) {
-    var code = jetpack.read(path.join(this.basePath, file), 'utf8');
+  updateFromChild(code) {
     this.updateState( {
       slides: this.getElements(code)
     }, () => {
@@ -51,13 +44,13 @@ class Content extends Component {
       result += html.prettyPrint(ReactDOMServer.renderToStaticMarkup(React.createElement(OutputSlide, {slides: this.state.slides, index: i})));
       result += '\n';
       result += '\n';
-    })
+    });
     return result;
   }
   getElements(html) {
     let element = document.createElement('div');
     element.innerHTML = html;
-    const anchors = Array.from(element.querySelectorAll('a')).map((a) => (
+    return Array.from(element.querySelectorAll('a')).map((a) => (
       {
         href: a.getAttribute("href").trim(), // literal path
         className: Array.from(a.classList),
@@ -72,8 +65,6 @@ class Content extends Component {
         heading: Array.from(a.querySelectorAll('h2')).map((header) => ({text: header.textContent}))
       }
     ));
-
-    return anchors;
   }
   toggleShowMobile(e) {
     e.preventDefault();
@@ -84,8 +75,11 @@ class Content extends Component {
   render() {
     return (
       <div id="app" className="row">
-        <div className="small-12 columns">
+        <div className="small-6 columns">
           <button className="button" onClick={(e) => this.toggleShowMobile(e)}>Toggle Mobile</button>
+        </div>
+        <div className="small-6 columns text-right">
+          <FileBrowser onChange={(val) => this.updateFromChild(val)} />
         </div>
         <div className="small-12 columns">
           <Slides

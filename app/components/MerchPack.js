@@ -177,10 +177,8 @@ class MerchPack extends Component{
             <li className="tabs-title"><a href="#panel2" onClick={(e) => this.onTabClick(e)} ref="resultsTab">Results</a></li>
           </ul>
         </div>
-        <div className="small-6 columns">
-          <FileBrowser
-            updateTextArea={(val) => this.updateTextAreaValueFromChild(val)}
-          />
+        <div className="small-6 columns text-right">
+          <FileBrowser onChange={(val) => this.updateTextAreaValueFromChild(val)} />
         </div>
         <div className="small-12 columns">
           <div className="row" ref="tabContent">
