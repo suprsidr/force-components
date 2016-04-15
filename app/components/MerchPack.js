@@ -152,7 +152,7 @@ class MerchPack extends Component{
     }
   }
   renderChildren(tag) {
-    return tag !== 'img';
+    return (tag !== 'img' && tag !== 'br');
   }
   renderEditable(tag) {
     return tag === 'a' && !this.renderingOutput ? EditableAnchor : tag;
