@@ -25,13 +25,13 @@
   },
   "homepage": "https://github.com/suprsidr/force-components.git#readme",
   "dependencies": {
-    "fs-jetpack": "^0.7.0",
-    "history": "^1.17.0",
+    "fs-jetpack": "^0.8.0",
+    "history": "^2.0.1",
     "html": "0.0.10",
-    "react": "^0.14",
-    "react-dom": "^0.14.0",
-    "react-modal": "^0.6.1",
-    "react-router": "^1.0.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-modal": "^1.1.0",
+    "react-router": "^2.2.2",
     "win-tfs": "^1.0.1"
   }
 }
