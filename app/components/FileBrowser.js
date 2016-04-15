@@ -1,84 +1,26 @@
 import React, {Component} from 'react';
-import jetpack from 'fs-jetpack';
-import path from 'path';
 
 class FileBrowser extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      directories: [],
-      files: [],
-      currentDirectory: ''
+  handleChange(e) {
+    console.log('files:',e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.props.onChange(reader.result);
     };
-    this.basePath = path.resolve('C:/xampp/htdocs/StaticCMSContent-dev/ForceRc/snippets/');
-  }
-  updateState(obj, cb) {
-    this.setState(obj, () => {
-      cb && cb();
-      console.log(this.state);
-    });
-  }
-  componentDidMount() {
-    let obj = jetpack.inspectTree(this.basePath, {relativePath: true});
-    if(obj.children && obj.children.length > 0) {
-      let dirs = this.getChildren(obj);
-      this.updateState({directories: dirs});
-    }
-  }
-  getDirectoryOptions(obj, key) {
-    if(obj.children.length > 0) {
-      return React.createElement('optgroup', {label: obj.name, key: key}, obj.children.reduce((prev, next, e) => {
-        prev.push(this.getDirectoryOptions(next, `${key}_${e}`));
-        return prev;
-      }, []))
-    } else {
-      return React.createElement('option', {key: key, value: obj.relativePath}, obj.name);
-    }
-  }
-  directoryOnChange(e) {
-    this.updateState({
-      files: jetpack.list(path.join(this.basePath, e.target.value)),
-      currentDirectory: e.target.value
-    });
-  }
-  fileOnChange(e) {
-    this.loadFile(e.target.value);
-  }
-  loadFile(file) {
-    var code = jetpack.read(path.join(this.basePath, this.state.currentDirectory, file), 'utf8');
-    this.props.updateTextArea(code);
-  }
-  getChildren(o) {
-    return o.children.reduce((prev, next) => {
-      if(next.type === 'file') {
-        return prev;
-      }
-      prev.push({
-        name: next.name,
-        relativePath: next.relativePath,
-        children: this.getChildren(next)
-      });
-      return prev;
-    }, [])
+    reader.readAsText(e.target.files[0], 'utf8');
   }
   render() {
     return (
-      <div className="row">
-        <div className="small-6 columns">
-          <select rel="dir" onChange={(e) => this.directoryOnChange(e)}>
-            <option key="a">Select Directory</option>
-            {this.state.directories.map((dir, i) => this.getDirectoryOptions(dir, i))}
-          </select>
-        </div>
-        <div className="small-6 columns">
-          <select onChange={(e) => this.fileOnChange(e)}>
-            <option key="b">Select File</option>
-            {this.state.files.map((file, i) => <option key={i} value={file}>{file}</option>)}
-          </select>
-        </div>
+      <div style={{position:'relative'}}>
+        <input type="file" ref="file" id="file-1" name="file-1[]" className="inputfile inputfile-1" onChange={(e) => this.handleChange(e)}/>
+        <label for="file-1" onClick={(e) => this.refs.file.click()}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file...</span></label>
       </div>
     )
   }
 }
+
+FileBrowser.propTypes = {
+  onChange: React.PropTypes.func.isRequired
+};
 
 export default FileBrowser;
