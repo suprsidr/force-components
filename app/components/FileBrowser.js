@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class FileBrowser extends Component {
   handleChange(e) {
-    console.log('files:',e.target.files[0]);
     const reader = new FileReader();
     reader.onload = (e) => {
       this.props.onChange(reader.result);
